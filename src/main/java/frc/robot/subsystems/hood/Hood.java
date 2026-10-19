@@ -14,27 +14,27 @@ public class Hood {
 
     TalonFX hoodMotor = new TalonFX(HoodConstants.kHoodMotorID);
 
-    final CurrentLimitsConfigs currentLimitsConfigs = 
+    final CurrentLimitsConfigs hoodCurrentLimitsConfigs = 
             new CurrentLimitsConfigs()
                 .withSupplyCurrentLimit(HoodConstants.kSupplyCurrentLimit)
                 .withSupplyCurrentLimitEnable(HoodConstants.kSupplyLimitEnabled)
                 .withStatorCurrentLimit(HoodConstants.kSupplyCurrentLimit)
                 .withStatorCurrentLimitEnable(HoodConstants.kSupplyLimitEnabled);
 
-    final MotorOutputConfigs motorOutputConfigs = 
+    final MotorOutputConfigs hoodMotorOutputConfigs = 
             new MotorOutputConfigs()
                 .withInverted(HoodConstants.kInversion)
                 .withNeutralMode(HoodConstants.kNeutralMode);
               
-    final FeedbackConfigs feedbackConfigs = 
+    final FeedbackConfigs hoodFeedbackConfigs = 
             new FeedbackConfigs()
                 .withSensorToMechanismRatio(HoodConstants.kGearRatio);
 
     final TalonFXConfiguration motorConfigs = 
             new TalonFXConfiguration()
-            .withCurrentLimits(currentLimitsConfigs)
-            .withMotorOutput(motorOutputConfigs)
-            .withFeedback(feedbackConfigs);  
+            .withCurrentLimits(hoodCurrentLimitsConfigs)
+            .withMotorOutput(hoodMotorOutputConfigs)
+            .withFeedback(hoodFeedbackConfigs);  
 
     private void configureMotors() {
         hoodMotor.getConfigurator().apply(motorConfigs);

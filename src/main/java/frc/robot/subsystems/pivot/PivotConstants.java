@@ -16,11 +16,6 @@ public class PivotConstants {
     
     public static final String kRobotName = "Walter";
 
-    public static final Angle kFeedAngle = Degrees.of(15);
-    public static final double kFeedAngleDouble = kFeedAngle.in(Degrees);
-    public static final double kFeedAngleRadians = kFeedAngle.in(Radians);
-    public static final Angle kStartingAngle = Degrees.of(0);
-
     public static final Voltage kMaxVoltage = Volts.of(12);
     public static final Current kMaxCurrent = Amps.of(40);
     public static final Current kSupplyCurrentLimit = Amps.of(40);
