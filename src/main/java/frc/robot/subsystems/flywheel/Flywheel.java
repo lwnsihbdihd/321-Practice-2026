@@ -9,6 +9,10 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.subsystems.hood.HoodConstants;
 
 public class Flywheel {
+
+    public Flywheel() {
+        configureFlywheelMotor();
+    }
     
     TalonFX flywheelMotor = new TalonFX(HoodConstants.kHoodMotorID);
 
