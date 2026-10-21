@@ -21,6 +21,8 @@ public class HoodConstants {
     public static final double kFeedAngleDegrees = kFeedAngle.in(Degrees); // converts degrees to double
     public static final double kFeedAngleRadians = kFeedAngle.in(Radians); // converts radians to double
     public static final Angle kStartingAngle = Degrees.of(0); // sets starting angle
+    public static final Angle kAngleTolerance = Degrees.of(1.5);
+    public static final Angle kTargetAngle = Degrees.of(50);
 
     public static final Voltage kMaxVoltage = Volts.of(12); // sets max voltage
 
