@@ -9,35 +9,48 @@ import com.ctre.phoenix6.hardware.TalonFX;
 public class Elevator {
     
     public Elevator() {
-        configureElevatorMotor();
+        configureElevatorMotors();
     }
 
-    TalonFX elevatorMotor = new TalonFX(ElevatorConstants.kElevatorMotorID);
+    TalonFX leftElevatorMotor = new TalonFX(ElevatorConstants.kLeftElevatorMotorID);
+    TalonFX rightElevatorMotor = new TalonFX(ElevatorConstants.kRightElevatorMotorID);
 
     final CurrentLimitsConfigs elevatorCurrentLimitsConfigs = 
             new CurrentLimitsConfigs()
                 .withSupplyCurrentLimit(ElevatorConstants.kSupplyCurrentLimit)
                 .withSupplyCurrentLimitEnable(ElevatorConstants.kSupplyLimitEnabled)
                 .withStatorCurrentLimit(ElevatorConstants.kSupplyCurrentLimit)
-                .withStatorCurrentLimitEnable(ElevatorConstants.kSupplyLimitEnabled);
-
-    final MotorOutputConfigs elevatorMotorOutputConfigs = 
-            new MotorOutputConfigs()
-                .withInverted(ElevatorConstants.kInversion)
-                .withNeutralMode(ElevatorConstants.kNeutralMode);
+                .withStatorCurrentLimitEnable(ElevatorConstants.kStatorLimitEnabled);
 
     final FeedbackConfigs elevatorFeedbackConfigs = 
             new FeedbackConfigs()
                 .withSensorToMechanismRatio(ElevatorConstants.kGearRatio);
 
-    final TalonFXConfiguration elevatorMotorConfigs = 
+    final MotorOutputConfigs leftElevatorMotorOutputConfigs = 
+            new MotorOutputConfigs()
+                .withInverted(ElevatorConstants.kInversionLeft)
+                .withNeutralMode(ElevatorConstants.kNeutralMode);
+
+    final MotorOutputConfigs rightElevatorMotorOutputConfigs = 
+            new MotorOutputConfigs()
+                .withInverted(ElevatorConstants.kInversionRight)
+                .withNeutralMode(ElevatorConstants.kNeutralMode);
+
+    final TalonFXConfiguration leftElevatorMotorConfigs = 
             new TalonFXConfiguration()
                 .withCurrentLimits(elevatorCurrentLimitsConfigs)
-                .withMotorOutput(elevatorMotorOutputConfigs)
+                .withMotorOutput(leftElevatorMotorOutputConfigs)
                 .withFeedback(elevatorFeedbackConfigs);
 
-    private void configureElevatorMotor() {
-        elevatorMotor.getConfigurator().apply(elevatorMotorConfigs);
+    final TalonFXConfiguration rightElevatorMotorConfigs = 
+            new TalonFXConfiguration()
+                .withCurrentLimits(elevatorCurrentLimitsConfigs)
+                .withMotorOutput(rightElevatorMotorOutputConfigs)
+                .withFeedback(elevatorFeedbackConfigs);
+
+    private void configureElevatorMotors() {
+        leftElevatorMotor.getConfigurator().apply(leftElevatorMotorConfigs);
+        rightElevatorMotor.getConfigurator().apply(rightElevatorMotorConfigs);
     }
 
 }
