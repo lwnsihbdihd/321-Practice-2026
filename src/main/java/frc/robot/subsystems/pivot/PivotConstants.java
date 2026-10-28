@@ -2,10 +2,14 @@ package frc.robot.subsystems.pivot;
 
 import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.DegreesPerSecond;
+import static edu.wpi.first.units.Units.DegreesPerSecondPerSecond;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.Volts;
 
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularAcceleration;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Voltage;
 
@@ -15,6 +19,12 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 public class PivotConstants {
     
     public static final String kRobotName = "Walter";
+
+    public static final Angle kTargetAngle = Degrees.of(50);
+    public static final Angle kAngleTolerance = Degrees.of(1.5);
+
+    public static final AngularVelocity kMaxVelocity = DegreesPerSecond.of(0);
+    public static final AngularAcceleration kMaxAcceleration = DegreesPerSecondPerSecond.of(0);
 
     public static final Voltage kMaxVoltage = Volts.of(12);
     public static final Current kMaxCurrent = Amps.of(40);
