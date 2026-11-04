@@ -29,6 +29,7 @@ public class HoodConstants {
     public static final Angle kTargetAngle = Degrees.of(50);
 
     public static final Voltage kMaxVoltage = Volts.of(12); // sets max voltage
+    public static final Voltage kHomingVoltage = Volts.of(0);
     public static final Current kMaxCurrent = Amps.of(40); // sets max Amps
     public static final Current kSupplyCurrentLimit = Amps.of(40); // sets supply current limit
     public static final boolean kSupplyLimitEnabled = true; // sets supply limit to enabled

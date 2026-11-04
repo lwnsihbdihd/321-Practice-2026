@@ -19,12 +19,23 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Hood {
+public class Hood extends SubsystemBase{
+
+    private Angle targetAngle = HoodConstants.kStartingAngle;
 
     private double kG = 0;
     private double kS = 0;
     private double kV = 0;
+
+    public void setVoltage(Voltage voltage) {
+        hoodMotor.setVoltage(voltage.in(Volts));
+    }
+
+    public void setTargetAngle(Angle angle) {
+        this.targetAngle = angle;
+    }
     
     private ArmFeedforward hoodFeedforward = new ArmFeedforward(kS, kG, kV);
 
@@ -99,13 +110,17 @@ public class Hood {
         return this.hoodMotor.getStatorCurrent().getValue();
     }
 
-    // @Override
+    @Logged (name = "atHomedAngle")
+    public boolean atHomedPosition() {
+        return false;
+    }
+
+    @Override
     public void periodic() {
         SmartDashboard.putNumber("Hood Angle", hoodMotor.getPosition().getValue().in(Degrees));
     }
 
     // public Angle currentAngle = Degrees.of(30);
-    public Angle targetAngle = Degrees.of(45);
     // private Voltage desiredVoltage = Volts.of(hoodController.calculate(currentAngle.in(Degrees), targetAngle.in(Degrees)));
 
     // public void goToAngle(Angle desiredAngle) {
@@ -121,5 +136,4 @@ public class Hood {
         Voltage desiredVoltage = Volts.of(calculatedFFVoltage.in(Volts) + calculatedPIDVoltage.in(Volts));
         hoodMotor.setVoltage(desiredVoltage.in(Volts));
     }
-
 }
