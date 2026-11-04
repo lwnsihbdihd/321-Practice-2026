@@ -1,6 +1,7 @@
 package frc.robot.subsystems.hood.hoodCommands;
 
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Volts;
 
 import java.util.function.Supplier;
 
@@ -22,21 +23,23 @@ public class GoToAngleCommand extends Command{
 
     @Override 
     public void initialize() {
-        hood.setTargetAngle(targetAngle);
+        hood.setTargetAngle(targetAngle.get());
     }
 
     @Override 
     public void execute() {
-
+        hood.goToAngle(targetAngle.get());
     }
 
     @Override 
     public boolean isFinished() {
-        return false;
+    return hood.getAngle().in(Degrees) == targetAngle.get().in(Degrees);
+
     }
 
     @Override 
     public void end(boolean interrupted) {
-
+        hood.setVoltage(Volts.of(0));
+        // hood.zeroEncoder();
     }
 }
