@@ -1,38 +1,47 @@
 package frc.robot.subsystems.hood.hoodCommands;
 
+import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Volts;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.hood.Hood;
 import frc.robot.subsystems.hood.HoodConstants;
 
-public class HomeHoodCommand extends Command{
+public class GoToAngle extends Command{
     
     Hood hood;
+
+    Supplier<Angle> targetAngle;
     
-    public void homeHood (Hood hood) {
+    public GoToAngle(Hood hood, Supplier<Angle> targetAngle) {
         this.hood = hood;
+        this.targetAngle = targetAngle;
         addRequirements(hood);
     }
 
     @Override 
     public void initialize() {
-
     }
 
     @Override 
     public void execute() {
-        hood.setVoltage(HoodConstants.kHomingVoltage);
+        hood.goToAngle(targetAngle.get());
     }
 
     @Override 
     public boolean isFinished() {
-        return hood.atHomedPosition();
+        boolean atTargetAngle = Math.abs(hood.getAngle().in(Degrees) - targetAngle.get().in(Degrees)) < HoodConstants.kAngleTolerance.in(Degrees);
+
+        return atTargetAngle;
+
     }
 
     @Override 
     public void end(boolean interrupted) {
-        // hood.zeroEncoder();
         hood.setVoltage(Volts.of(0));
+        // hood.zeroEncoder();
     }
 }
